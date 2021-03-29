@@ -1,0 +1,274 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Tabu Search},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Tabu Search}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Tabu Search},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Tabu Search}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\subsection{R Markdown}\label{r-markdown}
+
+\section{Loss Function}\label{loss-function}
+
+L = function(A, B, C, t\_c, m, omega, phi, price, t)\{ loss \textless{}-
+sum((price - (A + B\emph{abs(t\_c - t)\^{}m +
+(C}abs(t\_c-t)\^{}m\emph{cos(omega } log(abs(t\_c - t)) - phi))))\^{}2)
+\}
+
+TabuSearch \textless{}- function(A, B, C)\{ S \textless{}- hash() \# S
+represents current solution iter\_without\_improvement \textless{}- 0
+
+\# Generating a set of initial 10 * 3 parameters t\_c\_set \textless{}-
+runif(n = 40, min = max(base\_data\(t), max = max(base_data\)t) + 0.6)
+\# adding 0.6 year represent time horizon within the crash is expected
+m\_set \textless{}- runif(n = 40, min = 0.1, max = 0.9) omega\_set
+\textless{}- runif(n = 40, min = 6, max = 13) phi\_set \textless{}-
+runif(n = 40, min = 0, max = 2*pi)
+
+\# Looking for the 10 elite solutions out of 30 initial points, the best
+one is then our starting point. Furthermore, we choose the worst
+solution to set the taboo condition. elite\_list \textless{}- vector()
+random\_solutions \textless{}- cbind(t\_c\_set, m\_set, omega\_set,
+phi\_set) losses \textless{}- apply(random\_solutions, 1, function(x)
+L(A = A, B = B, C = C, t\_c = x{[}1{]}, m = x{[}2{]}, omega = x{[}3{]},
+phi = x{[}4{]}, price = base\_data\(price, t = base_data\)t)) losses
+\textless{}- as.data.frame(cbind(`loss' = losses, `t\_c' = t\_c\_set,
+`m' = m\_set, `omega' = omega\_set, `phi' = phi\_set)) losses
+\textless{}- losses \%\textgreater{}\% arrange(loss) elite\_list
+\textless{}- losses{[}1:10,{]} taboo\_condition \textless{}-
+losses{[}nrow(losses),1{]} S{[}{[}`loss'{]}{]} \textless{}-
+losses{[}1,`loss'{]} S{[}{[}`t\_c'{]}{]} \textless{}-
+losses{[}1,`t\_c'{]} S{[}{[}`m'{]}{]} \textless{}- losses{[}1,`m'{]}
+S{[}{[}`omega'{]}{]} \textless{}- losses{[}1,`omega'{]}
+S{[}{[}`phi'{]}{]} \textless{}- losses{[}1,`phi'{]} if (min(losses,
+na.rm = TRUE) \textless{} 200)\{ \# Partitioning and setting parameters
+for the number of randomly drawn cells and points within them partitions
+\textless{}- c(6,6,6,6) n\_c \textless{}- 2 n\_s \textless{}- 6
+t\_c.partitions \textless{}- seq(from =
+max(base\_data\(t), to = max(base_data\)t) + 4, length.out =
+partitions{[}1{]} + 1) \# we add 1 to create 6 cells, which requires 7
+borders m.partitions \textless{}- seq(from = 0.1, to = 0.9, length.out =
+partitions{[}2{]} + 1) omega.partitions \textless{}- seq(from = 6, to =
+13, length.out = partitions{[}3{]} + 1) phi.partitions \textless{}-
+seq(from = 0, to = 2*pi, length.out = partitions{[}4{]} + 1)
+partitions\_matrix \textless{}- rbind(t\_c.partitions, m.partitions,
+omega.partitions, phi.partitions)
+
+\begin{verbatim}
+# Searching procedure
+while (iter_without_improvement < 100){
+  # Drawing n_c * n_s points for looking for new solutions
+  chosen_cells <- t(sapply(partitions, function(x) sample(1:x, size = n_c, replace = FALSE)))
+  drawn_points <- sapply(1:nrow(partitions_matrix), function(row) sapply(chosen_cells[row,], 
+                                                                         function(x) as.vector(sapply(x,function(y) 
+                                                                           runif(n = n_s, min = partitions_matrix[row,y], max = partitions_matrix[row,y + 1])))))
+  colnames(drawn_points) <- c('t_c', 'm', 'omega', 'phi')
+  
+  # Computing the value of loss function for new points, dropping points returning losses in a taboo region
+  losses <- apply(drawn_points, 1, function(x) L(A = A, B = B, C = C, t_c = x[1], m = x[2], omega = x[3], phi = x[4], price = base_data$price, t = base_data$t))
+  drawn_points <- cbind('loss' = losses, drawn_points)
+  drawn_points <- drawn_points[complete.cases(drawn_points),,drop = FALSE] # dropping all points with non-defined loss function
+  losses <- losses[complete.cases(losses)] # dropping points from losses, too
+  non.taboo <- ifelse(losses < taboo_condition, TRUE, FALSE)
+  drawn_points <- drawn_points[non.taboo,,drop = FALSE]
+  
+  # Picking the nontaboo point with the lowest move value - move value is defined as loss at step t+1 minus loss at step t
+  if (nrow(drawn_points) > 0){
+    S[['loss']] <- drawn_points[which.min(drawn_points[,'loss'] - S$loss), 'loss']
+    S[['t_c']] <- drawn_points[which.min(drawn_points[,'loss'] - S$loss), 't_c']
+    S[['m']] <- drawn_points[which.min(drawn_points[,'loss'] - S$loss), 'm']
+    S[['omega']] <- drawn_points[which.min(drawn_points[,'loss'] - S$loss), 'omega']
+    S[['phi']] <- drawn_points[which.min(drawn_points[,'loss'] - S$loss), 'phi']
+    
+    # Executing elite_list modification in case of the loss of a new points is lower than the loss of the 10th element in the elite_list
+    if (S$loss < elite_list[10,'loss']){
+      elite_list <- rbind(elite_list[1:9,], drawn_points[which.min(drawn_points[,'loss'] - S$loss),]) %>%
+        arrange(loss)
+      iter_without_improvement <- 0
+    } else {
+      iter_without_improvement <- iter_without_improvement + 1
+    }
+  } else {
+    iter_without_improvement <- iter_without_improvement + 1
+  }
+}
+\end{verbatim}
+
+\} \# Filling results to the Grid grid \textless{}- grid
+\%\textgreater{}\% filter(a == A, b == B, c == C) \%\textgreater{}\%
+mutate(loss = elite\_list{[}1,`loss'{]}, t\_c =
+elite\_list{[}1,`t\_c'{]}, m = elite\_list{[}1,`m'{]}, omega =
+elite\_list{[}1,`omega'{]}, phi = elite\_list{[}1,`phi'{]})
+print(elite\_list) return(grid) \}
+
+
+\end{document}
+
+
+\end{document}

@@ -1,0 +1,244 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Tabu Search},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Tabu Search}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Loss Function}
+\NormalTok{L =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(A, B, C, t_c, m, omega, phi, price, t)\{}
+\NormalTok{  loss <-}\StringTok{ }\KeywordTok{sum}\NormalTok{((price }\OperatorTok{-}\StringTok{ }\NormalTok{(A }\OperatorTok{+}\StringTok{ }\NormalTok{B}\OperatorTok{*}\KeywordTok{abs}\NormalTok{(t_c }\OperatorTok{-}\StringTok{ }\NormalTok{t)}\OperatorTok{^}\NormalTok{m }\OperatorTok{+}\StringTok{ }
+\StringTok{                          }\NormalTok{(C}\OperatorTok{*}\KeywordTok{abs}\NormalTok{(t_c}\OperatorTok{-}\NormalTok{t)}\OperatorTok{^}\NormalTok{m}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(omega }\OperatorTok{*}\StringTok{ }\KeywordTok{log}\NormalTok{(}\KeywordTok{abs}\NormalTok{(t_c }\OperatorTok{-}\StringTok{ }\NormalTok{t)) }\OperatorTok{-}\StringTok{ }\NormalTok{phi))))}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{TabuSearch <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(A, B, C)\{}
+\NormalTok{  S <-}\StringTok{ }\KeywordTok{hash}\NormalTok{() }\CommentTok{# S represents current solution}
+\NormalTok{  iter_without_improvement <-}\StringTok{ }\DecValTok{0}
+  
+  \CommentTok{# Generating a set of initial 10 * 3 parameters}
+\NormalTok{  t_c_set <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{40}\NormalTok{, }\DataTypeTok{min =} \KeywordTok{max}\NormalTok{(base_data}\OperatorTok{$}\NormalTok{t), }\DataTypeTok{max =} \KeywordTok{max}\NormalTok{(base_data}\OperatorTok{$}\NormalTok{t) }\OperatorTok{+}\StringTok{ }\FloatTok{0.6}\NormalTok{) }
+                  \CommentTok{# adding 0.6 year represent time horizon within the crash is expected}
+\NormalTok{  m_set <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{40}\NormalTok{, }\DataTypeTok{min =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{max =} \FloatTok{0.9}\NormalTok{)}
+\NormalTok{  omega_set <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{40}\NormalTok{, }\DataTypeTok{min =} \DecValTok{6}\NormalTok{, }\DataTypeTok{max =} \DecValTok{13}\NormalTok{)}
+\NormalTok{  phi_set <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{40}\NormalTok{, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\OperatorTok{*}\NormalTok{pi)}
+  
+  \CommentTok{# Looking for the 10 elite solutions out of 30 initial points, }
+  \CommentTok{#the best one is then our starting point. Furthermore, we choose}
+  \CommentTok{#the worst solution to set the taboo condition.}
+\NormalTok{  elite_list <-}\StringTok{ }\KeywordTok{vector}\NormalTok{()}
+\NormalTok{  random_solutions <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(t_c_set, m_set, omega_set, phi_set)}
+\NormalTok{  losses <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(random_solutions, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{L}\NormalTok{(}\DataTypeTok{A =}\NormalTok{ A, }\DataTypeTok{B =}\NormalTok{ B, }\DataTypeTok{C =}\NormalTok{ C, }\DataTypeTok{t_c =}\NormalTok{ x[}\DecValTok{1}\NormalTok{],}
+                                                     \DataTypeTok{m =}\NormalTok{ x[}\DecValTok{2}\NormalTok{], }\DataTypeTok{omega =}\NormalTok{ x[}\DecValTok{3}\NormalTok{], }\DataTypeTok{phi =}\NormalTok{ x[}\DecValTok{4}\NormalTok{],}
+                                                     \DataTypeTok{price =}\NormalTok{ base_data}\OperatorTok{$}\NormalTok{price,}
+                                                     \DataTypeTok{t =}\NormalTok{ base_data}\OperatorTok{$}\NormalTok{t))}
+\NormalTok{  losses <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\StringTok{'loss'}\NormalTok{ =}\StringTok{ }\NormalTok{losses, }\StringTok{'t_c'}\NormalTok{ =}\StringTok{ }\NormalTok{t_c_set, }
+                                \StringTok{'m'}\NormalTok{ =}\StringTok{ }\NormalTok{m_set, }\StringTok{'omega'}\NormalTok{ =}\StringTok{ }\NormalTok{omega_set, }\StringTok{'phi'}\NormalTok{ =}\StringTok{ }\NormalTok{phi_set))}
+\NormalTok{  losses <-}\StringTok{ }\NormalTok{losses }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(loss)}
+\NormalTok{  elite_list <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,]}
+\NormalTok{  taboo_condition <-}\StringTok{ }\NormalTok{losses[}\KeywordTok{nrow}\NormalTok{(losses),}\DecValTok{1}\NormalTok{]}
+\NormalTok{  S[[}\StringTok{'loss'}\NormalTok{]] <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\NormalTok{,}\StringTok{'loss'}\NormalTok{]}
+\NormalTok{  S[[}\StringTok{'t_c'}\NormalTok{]] <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\NormalTok{,}\StringTok{'t_c'}\NormalTok{]}
+\NormalTok{  S[[}\StringTok{'m'}\NormalTok{]] <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\NormalTok{,}\StringTok{'m'}\NormalTok{]}
+\NormalTok{  S[[}\StringTok{'omega'}\NormalTok{]] <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\NormalTok{,}\StringTok{'omega'}\NormalTok{]}
+\NormalTok{  S[[}\StringTok{'phi'}\NormalTok{]] <-}\StringTok{ }\NormalTok{losses[}\DecValTok{1}\NormalTok{,}\StringTok{'phi'}\NormalTok{]}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{min}\NormalTok{(losses, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{<}\StringTok{ }\DecValTok{200}\NormalTok{)\{ }
+    \CommentTok{# Partitioning and setting parameters for the number of randomly drawn cells}
+    \CommentTok{#and points within them}
+\NormalTok{    partitions <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{    n_c <-}\StringTok{ }\DecValTok{2}
+\NormalTok{    n_s <-}\StringTok{ }\DecValTok{6}
+\NormalTok{    t_c.partitions <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \KeywordTok{max}\NormalTok{(base_data}\OperatorTok{$}\NormalTok{t),}
+                          \DataTypeTok{to =} \KeywordTok{max}\NormalTok{(base_data}\OperatorTok{$}\NormalTok{t) }\OperatorTok{+}\StringTok{ }\DecValTok{4}\NormalTok{,}
+                          \DataTypeTok{length.out =}\NormalTok{ partitions[}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{    m.partitions <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{to =} \FloatTok{0.9}\NormalTok{, }\DataTypeTok{length.out =}\NormalTok{ partitions[}\DecValTok{2}\NormalTok{] }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{    omega.partitions <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{6}\NormalTok{, }\DataTypeTok{to =} \DecValTok{13}\NormalTok{, }\DataTypeTok{length.out =}\NormalTok{ partitions[}\DecValTok{3}\NormalTok{] }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{    phi.partitions <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\OperatorTok{*}\NormalTok{pi, }\DataTypeTok{length.out =}\NormalTok{ partitions[}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{    partitions_matrix <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(t_c.partitions, m.partitions, omega.partitions,}
+\NormalTok{                               phi.partitions)}
+    
+    \CommentTok{# Searching procedure}
+    \ControlFlowTok{while}\NormalTok{ (iter_without_improvement }\OperatorTok{<}\StringTok{ }\DecValTok{100}\NormalTok{)\{}
+      \CommentTok{# Drawing n_c * n_s points for looking for new solutions}
+\NormalTok{      chosen_cells <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(partitions, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{x, }\DataTypeTok{size =}\NormalTok{ n_c,}
+                                                              \DataTypeTok{replace =} \OtherTok{FALSE}\NormalTok{)))}
+\NormalTok{      drawn_points <-}\StringTok{ }
+\StringTok{        }\KeywordTok{sapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(partitions_matrix), }
+               \ControlFlowTok{function}\NormalTok{(row) }\KeywordTok{sapply}\NormalTok{(chosen_cells[row,], }
+                                    \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(x,}\ControlFlowTok{function}\NormalTok{(y) }
+                                      \KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n_s, }\DataTypeTok{min =}\NormalTok{ partitions_matrix[row,y],}
+                                            \DataTypeTok{max =}\NormalTok{ partitions_matrix[row,y }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{])))))}
+      \KeywordTok{colnames}\NormalTok{(drawn_points) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'t_c'}\NormalTok{, }\StringTok{'m'}\NormalTok{, }\StringTok{'omega'}\NormalTok{, }\StringTok{'phi'}\NormalTok{)}
+      
+      \CommentTok{# Computing the value of loss function for new points,}
+      \CommentTok{#dropping points returning losses in a taboo region}
+\NormalTok{      losses <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(drawn_points, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{L}\NormalTok{(}\DataTypeTok{A =}\NormalTok{ A, }\DataTypeTok{B =}\NormalTok{ B, }\DataTypeTok{C =}\NormalTok{ C, }\DataTypeTok{t_c =}\NormalTok{ x[}\DecValTok{1}\NormalTok{], }
+                                                     \DataTypeTok{m =}\NormalTok{ x[}\DecValTok{2}\NormalTok{], }\DataTypeTok{omega =}\NormalTok{ x[}\DecValTok{3}\NormalTok{], }\DataTypeTok{phi =}\NormalTok{ x[}\DecValTok{4}\NormalTok{], }
+                                                     \DataTypeTok{price =}\NormalTok{ base_data}\OperatorTok{$}\NormalTok{price,}
+                                                     \DataTypeTok{t =}\NormalTok{ base_data}\OperatorTok{$}\NormalTok{t))}
+\NormalTok{      drawn_points <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\StringTok{'loss'}\NormalTok{ =}\StringTok{ }\NormalTok{losses, drawn_points)}
+      \CommentTok{# dropping all points with non-defined loss function}
+\NormalTok{      drawn_points <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{complete.cases}\NormalTok{(drawn_points),,drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{] }
+      
+\NormalTok{      losses <-}\StringTok{ }\NormalTok{losses[}\KeywordTok{complete.cases}\NormalTok{(losses)] }\CommentTok{# dropping points from losses, too}
+\NormalTok{      non.taboo <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(losses }\OperatorTok{<}\StringTok{ }\NormalTok{taboo_condition, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{      drawn_points <-}\StringTok{ }\NormalTok{drawn_points[non.taboo,,drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+      
+      \CommentTok{# Picking the nontaboo point with the lowest move value}
+      \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{nrow}\NormalTok{(drawn_points) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
+\NormalTok{        S[[}\StringTok{'loss'}\NormalTok{]] <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss), }\StringTok{'loss'}\NormalTok{]}
+\NormalTok{        S[[}\StringTok{'t_c'}\NormalTok{]] <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss), }\StringTok{'t_c'}\NormalTok{]}
+\NormalTok{        S[[}\StringTok{'m'}\NormalTok{]] <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss), }\StringTok{'m'}\NormalTok{]}
+\NormalTok{        S[[}\StringTok{'omega'}\NormalTok{]] <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss), }\StringTok{'omega'}\NormalTok{]}
+\NormalTok{        S[[}\StringTok{'phi'}\NormalTok{]] <-}\StringTok{ }\NormalTok{drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss), }\StringTok{'phi'}\NormalTok{]}
+        
+        \CommentTok{# Executing elite_list modification in case of the loss of a new points}
+        \CommentTok{#is lower than the loss of the 10th element in the elite_list}
+        \ControlFlowTok{if}\NormalTok{ (S}\OperatorTok{$}\NormalTok{loss }\OperatorTok{<}\StringTok{ }\NormalTok{elite_list[}\DecValTok{10}\NormalTok{,}\StringTok{'loss'}\NormalTok{])\{}
+\NormalTok{          elite_list <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(elite_list[}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{,],}
+\NormalTok{                              drawn_points[}\KeywordTok{which.min}\NormalTok{(drawn_points[,}\StringTok{'loss'}\NormalTok{] }\OperatorTok{-}\StringTok{ }\NormalTok{S}\OperatorTok{$}\NormalTok{loss),]) }\OperatorTok{%>%}
+\StringTok{            }\KeywordTok{arrange}\NormalTok{(loss)}
+\NormalTok{          iter_without_improvement <-}\StringTok{ }\DecValTok{0}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{          iter_without_improvement <-}\StringTok{ }\NormalTok{iter_without_improvement }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{        \}}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        iter_without_improvement <-}\StringTok{ }\NormalTok{iter_without_improvement }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  \CommentTok{# Filling results to the Grid}
+\NormalTok{  grid <-}\StringTok{ }\NormalTok{grid }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(a }\OperatorTok{==}\StringTok{ }\NormalTok{A, b }\OperatorTok{==}\StringTok{ }\NormalTok{B, c }\OperatorTok{==}\StringTok{ }\NormalTok{C) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{loss =}\NormalTok{ elite_list[}\DecValTok{1}\NormalTok{,}\StringTok{'loss'}\NormalTok{], }\DataTypeTok{t_c =}\NormalTok{ elite_list[}\DecValTok{1}\NormalTok{,}\StringTok{'t_c'}\NormalTok{], }\DataTypeTok{m =}\NormalTok{ elite_list[}\DecValTok{1}\NormalTok{,}\StringTok{'m'}\NormalTok{],}
+           \DataTypeTok{omega =}\NormalTok{ elite_list[}\DecValTok{1}\NormalTok{,}\StringTok{'omega'}\NormalTok{], }\DataTypeTok{phi =}\NormalTok{ elite_list[}\DecValTok{1}\NormalTok{,}\StringTok{'phi'}\NormalTok{])}
+  \KeywordTok{print}\NormalTok{(elite_list)}
+  \KeywordTok{return}\NormalTok{(grid)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
